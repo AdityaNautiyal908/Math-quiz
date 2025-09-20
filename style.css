@@ -1,0 +1,116 @@
+:root{
+	--bg:#0f1221;
+	--panel:#14182b;
+	--panel-2:#0c1022;
+	--text:#f2f5ff;
+	--muted:#a9b1d6;
+	--primary:#6ee7b7;
+	--primary-ink:#052e26;
+	--danger:#f87171;
+	--warning:#fbbf24;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+	margin:0;
+	font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+	background: radial-gradient(1200px 800px at 20% -10%, #1e2240 0%, transparent 60%),
+		radial-gradient(1000px 600px at 120% 0%, #1b2747 0%, transparent 60%),
+		var(--bg);
+	color:var(--text);
+}
+
+.app{max-width:840px;margin:0 auto;padding:20px}
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.topbar h1{font-size:24px;margin:0;font-weight:800;letter-spacing:0.3px}
+.stats{display:flex;gap:14px}
+.stat{background:var(--panel);padding:8px 12px;border-radius:10px;display:flex;gap:8px;align-items:baseline}
+.stat .label{color:var(--muted);font-size:12px}
+
+.timer{position:relative;height:14px;background:var(--panel);border-radius:999px;overflow:hidden;margin-bottom:18px}
+.timer-bar{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,var(--primary),#22c55e);width:100%;transition:width 120ms linear}
+.timer-text{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#0a101a;font-weight:700;text-shadow:0 1px 0 rgba(255,255,255,0.2)}
+
+.game{background:linear-gradient(180deg,rgba(255,255,255,0.03),transparent),var(--panel);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:20px}
+.question{font-size:28px;font-weight:800;text-align:center;margin:8px 0 14px}
+#answerForm{display:flex;gap:10px;justify-content:center}
+#answer{width:200px;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.1);background:var(--panel-2);color:var(--text);font-size:18px}
+#answer:focus{outline:2px solid rgba(110,231,183,0.5);border-color:transparent}
+button{cursor:pointer;border:none;border-radius:12px;padding:12px 16px;font-weight:700}
+button.primary{background:var(--primary);color:var(--primary-ink)}
+button.secondary{background:#334155;color:#e6edf7}
+button.ghost{background:transparent;border:1px solid rgba(255,255,255,0.15);color:#e6edf7}
+button:disabled{opacity:.6;cursor:not-allowed}
+.controls{display:flex;gap:10px;justify-content:center;margin:14px 0}
+.meta{display:flex;gap:10px;justify-content:center;align-items:center;color:var(--muted);font-weight:600}
+.feedback{min-height:24px}
+.tip{margin-top:16px;text-align:center;color:#d1e7dd;background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.25);padding:12px;border-radius:12px}
+.footer{margin-top:16px;text-align:center;color:var(--muted)}
+
+.modal{position:fixed;inset:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;padding:20px}
+.modal.hidden{display:none}
+.modal-content{background:var(--panel);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:20px;max-width:520px;width:100%;text-align:center}
+.modal-actions{margin-top:14px}
+
+/* Intro Animation */
+.modal-content.intro{text-align:center;padding:40px 20px}
+.logo-animation{margin-bottom:30px}
+.logo-text{font-size:48px;font-weight:800;color:var(--primary);margin-bottom:8px;animation:fadeInUp 1s ease-out}
+.logo-subtitle{font-size:24px;color:var(--muted);animation:fadeInUp 1s ease-out 0.3s both}
+.loading-dots{display:flex;justify-content:center;gap:8px;margin-top:20px}
+.loading-dots span{width:8px;height:8px;background:var(--primary);border-radius:50%;animation:bounce 1.4s ease-in-out infinite both}
+.loading-dots span:nth-child(1){animation-delay:-0.32s}
+.loading-dots span:nth-child(2){animation-delay:-0.16s}
+
+@keyframes fadeInUp{
+	from{opacity:0;transform:translateY(30px)}
+	to{opacity:1;transform:translateY(0)}
+}
+@keyframes bounce{
+	0%,80%,100%{transform:scale(0)}
+	40%{transform:scale(1)}
+}
+
+/* Main Menu */
+.modal-content.main-menu{text-align:center;padding:30px 20px}
+.modal-content.main-menu h2{font-size:32px;margin:0 0 8px;color:var(--primary)}
+.menu-actions{display:flex;flex-direction:column;gap:12px;margin:20px 0}
+button.large{padding:16px 24px;font-size:18px;min-width:200px}
+.best-score{margin-top:20px;color:var(--muted);font-size:14px}
+
+/* Topic Selection - Mobile App Style */
+.modal-content.topic-selection{max-width:600px;padding:0;background:var(--panel);border-radius:20px;overflow:hidden}
+.topic-header{background:linear-gradient(135deg,var(--primary),#22c55e);padding:20px;text-align:center;color:var(--primary-ink)}
+.topic-header h2{font-size:24px;margin:0 0 4px;font-weight:800}
+.topic-header .subtitle{font-size:14px;margin:0;opacity:0.8}
+
+.topic-sections{padding:20px;max-height:60vh;overflow-y:auto}
+.section{margin-bottom:24px}
+.section:last-child{margin-bottom:0}
+.section-title{font-size:12px;font-weight:800;letter-spacing:1px;color:var(--muted);margin:0 0 12px;text-transform:uppercase}
+
+.topic-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.topic-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px;cursor:pointer;transition:all 0.2s ease;display:flex;align-items:center;gap:12px;position:relative}
+.topic-card:hover{background:rgba(255,255,255,0.08);border-color:rgba(110,231,183,0.3)}
+.topic-card:has(input:checked){background:rgba(110,231,183,0.15);border-color:var(--primary)}
+.topic-card input{position:absolute;opacity:0;pointer-events:none}
+.topic-icon{font-size:20px;font-weight:700;color:var(--primary);min-width:24px;text-align:center}
+.topic-name{font-size:14px;font-weight:600;color:var(--text);flex:1}
+
+.topic-actions{background:rgba(0,0,0,0.2);padding:16px 20px;display:flex;gap:12px;justify-content:center}
+.topic-actions button{min-width:120px}
+
+/* Math Puzzle Styles */
+.puzzle-container{text-align:center;padding:20px 0}
+.puzzle-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:300px;margin:0 auto 20px}
+.puzzle-cell{background:rgba(110,231,183,0.1);border:2px solid rgba(110,231,183,0.3);border-radius:8px;padding:16px;font-size:18px;font-weight:700;color:var(--text);min-height:50px;display:flex;align-items:center;justify-content:center}
+.puzzle-instruction{color:var(--primary);font-size:16px;font-weight:600;margin-bottom:16px}
+.puzzle-options{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;max-width:200px;margin:0 auto}
+.puzzle-option{background:var(--panel-2);border:2px solid rgba(255,255,255,0.1);border-radius:12px;padding:16px;font-size:18px;font-weight:700;color:var(--text);cursor:pointer;transition:all 0.2s ease;min-height:50px;display:flex;align-items:center;justify-content:center}
+.puzzle-option:hover{background:rgba(110,231,183,0.1);border-color:var(--primary)}
+.puzzle-option.selected{background:rgba(110,231,183,0.2);border-color:var(--primary);color:var(--primary)}
+
+@media (max-width:520px){
+	.question{font-size:24px}
+	#answer{width:160px}
+}

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Quick Math Trainer</title>
+	<link rel="stylesheet" href="style.css" />
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+	<div class="app">
+		<header class="topbar">
+			<h1>Quick Math Trainer</h1>
+			<div class="stats">
+				<div class="stat"><span class="label">Score</span><span id="score">0</span></div>
+				<div class="stat"><span class="label">Best</span><span id="highScore">0</span></div>
+			</div>
+		</header>
+
+		<div class="timer">
+			<div id="timerBar" class="timer-bar"></div>
+			<div id="timerText" class="timer-text">20.0s</div>
+		</div>
+
+		<main class="game">
+			<div class="question" id="question">Press Start to begin</div>
+			
+			<!-- Regular math questions -->
+			<div id="regularQuestion" class="question-container">
+				<form id="answerForm" autocomplete="off">
+					<input id="answer" inputmode="text" placeholder="Your answer (number only)" />
+					<button id="submitBtn" class="primary" type="submit">Submit</button>
+				</form>
+			</div>
+
+			<!-- Math puzzle mode -->
+			<div id="puzzleQuestion" class="puzzle-container hidden">
+				<div class="puzzle-grid" id="puzzleGrid">
+					<!-- 3x3 grid will be generated here -->
+				</div>
+				<div class="puzzle-instruction">Pick your Answer</div>
+				<div class="puzzle-options" id="puzzleOptions">
+					<!-- 4 answer options will be generated here -->
+				</div>
+			</div>
+
+			<div class="controls">
+				<button id="startBtn" class="secondary">Start</button>
+				<button id="nextBtn" class="ghost" style="display:none" disabled>Next</button>
+			</div>
+
+			<div class="meta">
+				<div class="streak">Streak: <span id="streak">0</span></div>
+				<div class="feedback" id="feedback"></div>
+			</div>
+
+			<div class="tip" id="tip">Tip: Use mental math tricks to go faster!</div>
+		</main>
+
+		<footer class="footer">
+			<div>Enter to submit · S to start</div>
+		</footer>
+	</div>
+
+	<!-- Intro Animation Screen -->
+	<div id="introScreen" class="modal" role="dialog" aria-modal="true">
+		<div class="modal-content intro">
+			<div class="logo-animation">
+				<div class="logo-text">Quick Math</div>
+				<div class="logo-subtitle">Trainer</div>
+			</div>
+			<div class="loading-dots">
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+		</div>
+	</div>
+
+	<!-- Main Menu Screen -->
+	<div id="mainMenuScreen" class="modal hidden" role="dialog" aria-modal="true">
+		<div class="modal-content main-menu">
+			<h2>Quick Math Trainer</h2>
+			<p class="subtitle">Challenge your mental math skills!</p>
+			<div class="menu-actions">
+				<button id="playBtn" class="primary large">Play</button>
+				<button id="quitBtn" class="secondary large">Quit</button>
+			</div>
+			<div class="best-score">Best Score: <span id="menuBestScore">0</span></div>
+		</div>
+	</div>
+
+	<!-- Topic Selection Screen -->
+	<div id="topicScreen" class="modal hidden" role="dialog" aria-modal="true">
+		<div class="modal-content topic-selection">
+			<div class="topic-header">
+				<h2>Quick Math Trainer</h2>
+				<p class="subtitle">Choose topics to practice</p>
+			</div>
+			
+			<div class="topic-sections">
+				<div class="section">
+					<h3 class="section-title">BASICS</h3>
+					<div class="topic-grid">
+						<label class="topic-card" data-topic="add">
+							<input type="checkbox" id="t_add" checked>
+							<div class="topic-icon">+</div>
+							<div class="topic-name">Addition</div>
+						</label>
+						<label class="topic-card" data-topic="sub">
+							<input type="checkbox" id="t_sub" checked>
+							<div class="topic-icon">−</div>
+							<div class="topic-name">Subtraction</div>
+						</label>
+						<label class="topic-card" data-topic="mul">
+							<input type="checkbox" id="t_mul" checked>
+							<div class="topic-icon">×</div>
+							<div class="topic-name">Multiplication</div>
+						</label>
+						<label class="topic-card" data-topic="div">
+							<input type="checkbox" id="t_div" checked>
+							<div class="topic-icon">÷</div>
+							<div class="topic-name">Division</div>
+						</label>
+					</div>
+				</div>
+
+				<div class="section">
+					<h3 class="section-title">ADVANCED</h3>
+					<div class="topic-grid">
+						<label class="topic-card" data-topic="square">
+							<input type="checkbox" id="t_square" checked>
+							<div class="topic-icon">x²</div>
+							<div class="topic-name">Square</div>
+						</label>
+						<label class="topic-card" data-topic="cube">
+							<input type="checkbox" id="t_cube" checked>
+							<div class="topic-icon">x³</div>
+							<div class="topic-name">Cube</div>
+						</label>
+						<label class="topic-card" data-topic="sqrt">
+							<input type="checkbox" id="t_sqrt" checked>
+							<div class="topic-icon">√x</div>
+							<div class="topic-name">Square Root</div>
+						</label>
+						<label class="topic-card" data-topic="memory">
+							<input type="checkbox" id="t_memory" checked>
+							<div class="topic-icon">🧠</div>
+							<div class="topic-name">Memory Sum</div>
+						</label>
+						<label class="topic-card" data-topic="puzzle">
+							<input type="checkbox" id="t_puzzle" checked>
+							<div class="topic-icon">🧩</div>
+							<div class="topic-name">Math Puzzle</div>
+						</label>
+					</div>
+				</div>
+			</div>
+
+			<div class="topic-actions">
+				<button id="backBtn" class="secondary">Back</button>
+				<button id="startGameBtn" class="primary">Start Game</button>
+			</div>
+		</div>
+	</div>
+
+	<div id="summaryModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="summaryTitle">
+		<div class="modal-content">
+			<h2 id="summaryTitle">Great run!</h2>
+			<p>Your score: <strong id="finalScore">0</strong></p>
+			<p>Best score: <strong id="bestScore">0</strong></p>
+			<div class="modal-actions">
+				<button id="playAgainBtn" class="primary">Play Again</button>
+			</div>
+		</div>
+	</div>
+
+	<script src="script.js"></script>
+</body>
+</html>
